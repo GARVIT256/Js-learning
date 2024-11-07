@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="wrapper">
+        <h1>Number Guessing Game</h1>
+    <p>Try and guess a random number between 1 and 100</p>
+    <p>You have 10 attempts to guess the right number.</p>
+    <br>
+    <form class = "form">
+        <label for = "guessField" id="guess" >Guess a number</label>
+        <br>
+        <input type="text" id="guessField" class="guessField" >
+        <br>
+        <br>
+        <input type="submit" id="subt" value="Submit guess" class="guessSubmit">
+        <!-- input type "submit "is actually a button -->
+    </form>
+
+    <div class="resultParas">
+        <p>Previous Guesses: <span class="guesses"></span></p>
+        <p>Guess Remaining: <span class="lastResult"></Span></p>
+        <p class="lowORhigh"></p>
+    </div>
+        
+    </div>
+
+    <style>
+        #wrapper {
+            background-color: grey;
+            /* display:flex; */
+            justify-content :center;
+            align-items :center;
+            text-align : center;
+        }
+        #subt{
+            background-color : black;
+            color:white;
+        }
+    </style>
+    
+    
+
+    <script>
+        //generates a random no greater than 1 and less than 100
+        let randomNumber = parseInt(Math.random()*100+1)//generates a random number
+        const submit = document.querySelector('#subt')
+        const userInput = document.querySelector('#guessField');
+        const guessSlot = document.querySelector('.guesses'); //stores all previous guesses
+        const remaining = document.querySelector('.lastResult');//gives the no of guesses remainig after adding each guess
+        const LOWOrHI = document.querySelector('.lowORhigh');//tells if the value we have added is low or high
+        const startOver = document.querySelector('.resultParas'); //basically after the game ends prev guesses ki value bhi empty hojayegi
+        //and guesses remaining bhi waapis se 10 hojayenge
+
+        let prevGuess = [];  //we will store the values in an array jo bhi user sumbmit karega so that user ek hi value ko dobara na daale
+        let numGuess = 1;//kitne attempts user kar chuka h
+
+        let playGame = true; //it allows to play game
+        if(playGame){
+            submit.addEventListener('click',function(e){
+                e.preventDefault();
+                const guess = parseInt(userInput.value) //isme user inputs daaldega on clicking the button
+                validateGuess(guess)
+            })
+        }
+
+        function validateGuess(){
+            //to check ki kya number 100 se bada toh ni h ya 0 se cotta toh ni h
+            if(isNaN(guess)){
+                alert('please enter a valid number')
+            }
+            else if (guess<1){
+                alert('please enter a valid number')
+            }
+            else if(guess>100){
+                alert('please enter a number less than 100')
+            }
+            else{
+                prevGuess.push(guess) //to push the guess inside the array
+            
+                //to check ki kahi uska game over na hogya ho ie last attempt na ho
+                if(numGuess ===11){
+                displayGuess(guess)
+                displayMessage (`Game Over.Random Number was  ${randomNumber}`)
+                endGame();
+            }
+            else{
+                displayGuess(guess);
+                checkGuess(guess);
+            }
+        }
+    }
+    function checkGuess(guess){ //to check ki value higher hai ya lower hai
+        if(guess === randomNumber){
+            displayMessage("You guessed it right");
+            endGame();
+        }else if(guess< randomNumber){
+            displayMessage('Number is too low')
+        }else if(guess > randomNumber){
+            displayMessage('Number is too high')
+        }
+    }
+    function displayGuess(guess){ //basically it is a clean up method
+        userInput.value = ''//userinput ki value ko empty string daaldenge once the value is submitted
+        guessSlot.innerHTML += `${guess} , `; //guessSlot stores previous guesses
+        numGuess++;
+        remaining.innerHTML = `${11-numGuess}` //11 mei se minus isliye kar rahe h kyunki hum total 11 guesses daalenge 
+        //phir jaise hi 11 th guess daalenge tab woh end game karega       
+    }
+    function displayMessage(message){
+        LOWOrHI.innerHTML = `<h2>${message}</h2 ` ;//it prints the message whether it is low or high
+    }
+    function endGame(){
+        //to finish up the game
+        userInput.value = ''//to clean up the value
+        userInput.setAttribute('disabled','') //setAttribute always key value pairs mei daalte hai so humne iski empty value di hai
+        p.classList.add('button') //it will start behaving like button
+        p.innerHTML = <h2 id ="newGame">Start a new Game</h2>;
+        startOver.appendChild(p);
+        playGame(false);
+        newGame();
+    }
+    function newGame(){
+       const newGameButton =  document.querySelector('#newGame')
+       newGameButton.addEventListener('click',function(e){
+        randomeNumber = parseInt(Math.random()*100 +1);
+        prevGuess = []
+        numGuess =1
+        guessSlot.innerHTML=''
+        remaining.innerHTML = `${11-numGuess}`
+        userInput.removeAttribute('disabled')
+        startOver.removeChild(p);
+        playGame = true;
+       })
+
+    }
+    </script>>
+    
+
+    
+
+</body>
+</html>
