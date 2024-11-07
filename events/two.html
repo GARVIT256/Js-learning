@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Hello World</h1>
+    <button id="away">Do not change heading</button>
+    <button id="start">Start</button>
+    <button id="stop">Stop</button>
+</body>
+<script>
+    const changeText = function(){
+        document.querySelector('h1').innerHTML = "Bye World"
+    }
+    const change = setTimeout(changeText, 3000)
+    document.querySelector('#away').addEventListener('click', function(){
+        clearTimeout(change)
+        console.log("STOPPED")
+    })
+
+
+
+
+    let changeMe; 
+    document.querySelector('#start').addEventListener('click', function() {
+        changeMe = setInterval(function() { 
+            console.log("Bewdi Mehak");
+        }, 1000);
+    });
+
+    document.querySelector('#stop').addEventListener('click', function() {
+        clearInterval(changeMe); 
+        console.log("STOPPED");
+    });
+</script>
+</html>
