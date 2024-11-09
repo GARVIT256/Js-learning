@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let firstPromise = new Promise((resolve, reject) => {
+    let success = true;
+    if (success) {
+        resolve("My name is garvit");
+    } else {
+        reject("my name is not garvit");
+    }
+});
+
+let promise2 = new Promise((resolve, reject) => {
+    let success = true;
+    if (success) {
+        resolve("Promise fulfilled");
+    } else {
+        reject("Promise rejected");
+    }
+});
+
+Promise.all([firstPromise, promise2])
+    .then((values) => {
+        console.log(values);
+    })
+    .catch((error) => {
+        console.error(error);
+    })
+    .finally(() => {
+        console.log('hi final');
+    });
+
+    </script>
+</body>
+</html>
