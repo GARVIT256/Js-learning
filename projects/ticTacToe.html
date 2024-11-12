@@ -77,12 +77,6 @@
             [3,4,5],
             [6,7,8]
         ]
-        const resetGame = () => {
-        turnX = true;
-        filledBoxes = 0;
-        enableBoxes();
-        msg.classList.add("hide");
-        };
         buttons.forEach((box)=>{
             box.addEventListener("click",()=>{
                 if(turnX){
@@ -97,26 +91,6 @@
             checkWinner()
             })
         });
-        const disableBoxes = () => {
-        for (let box of buttons) {
-            box.disabled = true;
-        }
-        };
-        const enableBoxes = () => {
-        for (let box of buttons) {
-            box.disabled = false;
-            box.innerText = "";
-        }
-        };
-        const gameDraw = () => {
-        msg.innerText = `Game was a Draw.`;
-        msg.classList.remove("hide");
-        };
-        const showWinner = (winner) => {
-        msg.innerText = `Congratulations, Winner is ${winner}`;
-        msg.classList.remove("hide");
-        disableBoxes();
-        };
         let checkWinner=()=>{
             for(let i of winpattern){
                 let pos1 = buttons[i[0]].innerText;
@@ -134,6 +108,32 @@
             return;
         }
         }
+        const showWinner = (winner) => {
+        msg.innerText = `Congratulations, Winner is ${winner}`;
+        msg.classList.remove("hide");
+        disableBoxes();
+        };
+        const gameDraw = () => {
+        msg.innerText = `Game was a Draw.`;
+        msg.classList.remove("hide");
+        };
+        const disableBoxes = () => {
+        for (let box of buttons) {
+            box.disabled = true;
+        }
+        };
+        const enableBoxes = () => {
+        for (let box of buttons) {
+            box.disabled = false;
+            box.innerText = "";
+        }
+        };
+        const resetGame = () => {
+        turnX = true;
+        filledBoxes = 0;
+        enableBoxes();
+        msg.classList.add("hide");
+        };
         resetbtn.addEventListener("click", resetGame);
     </script>
 </body>
